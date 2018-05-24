@@ -82,12 +82,6 @@ public interface IModelPlayer
 
 	void localRenderDeadmau5Head(float paramFloat);
 
-	void realSetInvisible(boolean paramBoolean);
-
-	void superSetInvisible(boolean paramBoolean);
-
-	void localSetInvisible(boolean paramBoolean);
-
 	void realSetLivingAnimations(net.minecraft.entity.EntityLivingBase paramEntityLivingBase, float paramFloat1, float paramFloat2, float paramFloat3);
 
 	void superSetLivingAnimations(net.minecraft.entity.EntityLivingBase paramEntityLivingBase, float paramFloat1, float paramFloat2, float paramFloat3);
@@ -111,6 +105,12 @@ public interface IModelPlayer
 	void superSetTextureOffset(String paramString, int paramInt1, int paramInt2);
 
 	void localSetTextureOffset(String paramString, int paramInt1, int paramInt2);
+
+	void realSetVisible(boolean paramBoolean);
+
+	void superSetVisible(boolean paramBoolean);
+
+	void localSetVisible(boolean paramBoolean);
 
 	net.minecraft.client.model.ModelRenderer getBipedBodyField();
 

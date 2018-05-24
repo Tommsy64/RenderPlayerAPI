@@ -232,25 +232,6 @@ public abstract class ModelPlayerBase
 	{
 	}
 
-	public void beforeSetInvisible(boolean paramBoolean)
-	{
-	}
-
-	public void setInvisible(boolean paramBoolean)
-	{
-		ModelPlayerBase overwritten = internalModelPlayerAPI.GetOverwrittenSetInvisible(this);
-
-		if(overwritten == null)
-			modelPlayerAPI.localSetInvisible(paramBoolean);
-		else if(overwritten != this)
-			overwritten.setInvisible(paramBoolean);
-
-	}
-
-	public void afterSetInvisible(boolean paramBoolean)
-	{
-	}
-
 	public void beforeSetLivingAnimations(net.minecraft.entity.EntityLivingBase paramEntityLivingBase, float paramFloat1, float paramFloat2, float paramFloat3)
 	{
 	}
@@ -324,6 +305,25 @@ public abstract class ModelPlayerBase
 	}
 
 	public void afterSetTextureOffset(String paramString, int paramInt1, int paramInt2)
+	{
+	}
+
+	public void beforeSetVisible(boolean paramBoolean)
+	{
+	}
+
+	public void setVisible(boolean paramBoolean)
+	{
+		ModelPlayerBase overwritten = internalModelPlayerAPI.GetOverwrittenSetVisible(this);
+
+		if(overwritten == null)
+			modelPlayerAPI.localSetVisible(paramBoolean);
+		else if(overwritten != this)
+			overwritten.setVisible(paramBoolean);
+
+	}
+
+	public void afterSetVisible(boolean paramBoolean)
 	{
 	}
 

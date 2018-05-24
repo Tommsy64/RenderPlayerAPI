@@ -67,12 +67,12 @@ public final class RenderPlayerConstructorVisitor extends MethodVisitor
 			}
 		}
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
-		if(name.equals("<init>") && owner.equals(isObfuscated ? "bsy" : "net/minecraft/client/renderer/entity/RenderLivingBase"))
+		if(name.equals("<init>") && owner.equals(isObfuscated ? "caa" : "net/minecraft/client/renderer/entity/RenderLivingBase"))
 		{
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/render/RenderPlayerAPI", "create", "(Lapi/player/render/IRenderPlayerAPI;)Lapi/player/render/RenderPlayerAPI;", false);
-			mv.visitFieldInsn(Opcodes.PUTFIELD, isObfuscated ? "bvh" : "net/minecraft/client/renderer/entity/RenderPlayer", "renderPlayerAPI", "Lapi/player/render/RenderPlayerAPI;");
+			mv.visitFieldInsn(Opcodes.PUTFIELD, isObfuscated ? "cct" : "net/minecraft/client/renderer/entity/RenderPlayer", "renderPlayerAPI", "Lapi/player/render/RenderPlayerAPI;");
 
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);

@@ -2,7 +2,7 @@
 Render Player API core
 ======================
 
-Version 1.1 for Minecraft 1.10.2
+Version 1.1 for Minecraft 1.12.2
 
 by Divisor
 

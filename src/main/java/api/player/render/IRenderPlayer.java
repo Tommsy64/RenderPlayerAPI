@@ -124,6 +124,12 @@ public interface IRenderPlayer
 
 	boolean localIsMultipass();
 
+	boolean realIsVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer);
+
+	boolean superIsVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer);
+
+	boolean localIsVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer);
+
 	void realPreRenderCallback(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat);
 
 	void localPreRenderCallback(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat);
@@ -133,12 +139,6 @@ public interface IRenderPlayer
 	float superPrepareScale(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat);
 
 	float localPrepareScale(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat);
-
-	boolean realRemoveLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer);
-
-	boolean superRemoveLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer);
-
-	boolean localRemoveLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer);
 
 	void realRenderEntityName(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, double paramDouble1, double paramDouble2, double paramDouble3, String paramString, double paramDouble4);
 

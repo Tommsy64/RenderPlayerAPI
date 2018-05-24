@@ -26,7 +26,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 {
 	public static final String targetClassName = "api.player.model.ModelPlayerArmor";
 	public static final String obfuscatedClassReference = "api/player/model/ModelPlayerArmor";
-	public static final String obfuscatedSuperClassReference = "bjp";
+	public static final String obfuscatedSuperClassReference = "bpx";
 	public static final String deobfuscatedClassReference = "api/player/model/ModelPlayerArmor";
 	public static final String deobfuscateSuperClassReference = "net/minecraft/client/model/ModelBiped";
 
@@ -36,11 +36,11 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 	private boolean hadLocalGetTextureOffset;
 	private boolean hadLocalPostRenderArm;
 	private boolean hadLocalRender;
-	private boolean hadLocalSetInvisible;
 	private boolean hadLocalSetLivingAnimations;
 	private boolean hadLocalSetModelAttributes;
 	private boolean hadLocalSetRotationAngles;
 	private boolean hadLocalSetTextureOffset;
+	private boolean hadLocalSetVisible;
 
 	public static byte[] transform(byte[] bytes, boolean isObfuscated)
 	{
@@ -75,7 +75,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces)
 	{
 		if(isObfuscated && superName.equals("net/minecraft/client/model/ModelBiped"))
-			superName = "bjp";
+			superName = "bpx";
 		String[] newInterfaces = new String[interfaces.length + 1];
 		for(int i=0; i<interfaces.length; i++)
 			newInterfaces[i] = interfaces[i];
@@ -136,61 +136,55 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			return new ModelPlayerArmorConstructorVisitor(super.visitMethod(access, name, desc, signature, exceptions), isObfuscated, true, 5);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "getArmForSide") && desc.equals(isObfuscated ? "(Lse;)Lblf;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;"))
+		if(name.equals(isObfuscated ? "a" : "getArmForSide") && desc.equals(isObfuscated ? "(Lvo;)Lbrs;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;"))
 		{
 			hadLocalGetArmForSide = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localGetArmForSide", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "getMainHand") && desc.equals(isObfuscated ? "(Lrw;)Lse;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;"))
+		if(name.equals(isObfuscated ? "a" : "getMainHand") && desc.equals(isObfuscated ? "(Lvg;)Lvo;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;"))
 		{
 			hadLocalGetMainHand = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localGetMainHand", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "getRandomModelBox") && desc.equals(isObfuscated ? "(Ljava/util/Random;)Lblf;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;"))
+		if(name.equals(isObfuscated ? "a" : "getRandomModelBox") && desc.equals(isObfuscated ? "(Ljava/util/Random;)Lbrs;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;"))
 		{
 			hadLocalGetRandomModelBox = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localGetRandomModelBox", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "getTextureOffset") && desc.equals(isObfuscated ? "(Ljava/lang/String;)Lblg;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;"))
+		if(name.equals(isObfuscated ? "a" : "getTextureOffset") && desc.equals(isObfuscated ? "(Ljava/lang/String;)Lbrt;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;"))
 		{
 			hadLocalGetTextureOffset = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localGetTextureOffset", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "postRenderArm") && desc.equals(isObfuscated ? "(FLse;)V" : "(FLnet/minecraft/util/EnumHandSide;)V"))
+		if(name.equals(isObfuscated ? "a" : "postRenderArm") && desc.equals(isObfuscated ? "(FLvo;)V" : "(FLnet/minecraft/util/EnumHandSide;)V"))
 		{
 			hadLocalPostRenderArm = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localPostRenderArm", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "render") && desc.equals(isObfuscated ? "(Lrw;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V"))
+		if(name.equals(isObfuscated ? "a" : "render") && desc.equals(isObfuscated ? "(Lvg;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V"))
 		{
 			hadLocalRender = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localRender", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "setInvisible") && desc.equals("(Z)V"))
-		{
-			hadLocalSetInvisible = true;
-			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetInvisible", desc, signature, exceptions);
-		}
-
-		if(name.equals(isObfuscated ? "a" : "setLivingAnimations") && desc.equals(isObfuscated ? "(Lsf;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V"))
+		if(name.equals(isObfuscated ? "a" : "setLivingAnimations") && desc.equals(isObfuscated ? "(Lvp;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V"))
 		{
 			hadLocalSetLivingAnimations = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetLivingAnimations", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "setModelAttributes") && desc.equals(isObfuscated ? "(Lbju;)V" : "(Lnet/minecraft/client/model/ModelBase;)V"))
+		if(name.equals(isObfuscated ? "a" : "setModelAttributes") && desc.equals(isObfuscated ? "(Lbqf;)V" : "(Lnet/minecraft/client/model/ModelBase;)V"))
 		{
 			hadLocalSetModelAttributes = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetModelAttributes", desc, signature, exceptions);
 		}
 
-		if(name.equals(isObfuscated ? "a" : "setRotationAngles") && desc.equals(isObfuscated ? "(FFFFFFLrw;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V"))
+		if(name.equals(isObfuscated ? "a" : "setRotationAngles") && desc.equals(isObfuscated ? "(FFFFFFLvg;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V"))
 		{
 			hadLocalSetRotationAngles = true;
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetRotationAngles", desc, signature, exceptions);
@@ -202,6 +196,12 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetTextureOffset", desc, signature, exceptions);
 		}
 
+		if(name.equals(isObfuscated ? "a" : "setVisible") && desc.equals("(Z)V"))
+		{
+			hadLocalSetVisible = true;
+			return super.visitMethod(Opcodes.ACC_PUBLIC, "localSetVisible", desc, signature, exceptions);
+		}
+
 		return super.visitMethod(access, name, desc, signature, exceptions);
 	}
 
@@ -210,147 +210,147 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 	{
 		MethodVisitor mv;
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lse;)Lblf;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lvo;)Lbrs;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getArmForSide", "(Lapi/player/model/IModelPlayerAPI;Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getArmForSide", "(Lapi/player/model/IModelPlayerAPI;Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lse;)Lblf;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lvo;)Lbrs;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lse;)Lblf;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lvo;)Lbrs;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
 		if(!hadLocalGetArmForSide)
 		{
-			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetArmForSide", "(Lnet/minecraft/util/EnumHandSide;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lse;)Lblf;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187074_a" : "getArmForSide", "" + (isObfuscated ? "(Lvo;)Lbrs;" : "(Lnet/minecraft/util/EnumHandSide;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 			mv.visitInsn(Opcodes.ARETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lrw;)Lse;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lvg;)Lvo;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getMainHand", "(Lapi/player/model/IModelPlayerAPI;Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lse;" : "Lnet/minecraft/util/EnumHandSide;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getMainHand", "(Lapi/player/model/IModelPlayerAPI;Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lvo;" : "Lnet/minecraft/util/EnumHandSide;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lse;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lvo;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lrw;)Lse;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lvg;)Lvo;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lse;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lvo;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lrw;)Lse;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lvg;)Lvo;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
 		if(!hadLocalGetMainHand)
 		{
-			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lse;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
+			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetMainHand", "(Lnet/minecraft/entity/Entity;)" + (isObfuscated ? "Lvo;" : "Lnet/minecraft/util/EnumHandSide;") + "", null, null);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lrw;)Lse;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187072_a" : "getMainHand", "" + (isObfuscated ? "(Lvg;)Lvo;" : "(Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/EnumHandSide;") + "", false);
 			mv.visitInsn(Opcodes.ARETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lblf;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lbrs;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getRandomModelBox", "(Lapi/player/model/IModelPlayerAPI;Ljava/util/Random;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getRandomModelBox", "(Lapi/player/model/IModelPlayerAPI;Ljava/util/Random;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lblf;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lbrs;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lblf;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lbrs;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
 		if(!hadLocalGetRandomModelBox)
 		{
-			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
+			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetRandomModelBox", "(Ljava/util/Random;)" + (isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;") + "", null, null);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lblf;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_85181_a" : "getRandomModelBox", "" + (isObfuscated ? "(Ljava/util/Random;)Lbrs;" : "(Ljava/util/Random;)Lnet/minecraft/client/model/ModelRenderer;") + "", false);
 			mv.visitInsn(Opcodes.ARETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lblg;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lbrt;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getTextureOffset", "(Lapi/player/model/IModelPlayerAPI;Ljava/lang/String;)" + (isObfuscated ? "Lblg;" : "Lnet/minecraft/client/model/TextureOffset;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getTextureOffset", "(Lapi/player/model/IModelPlayerAPI;Ljava/lang/String;)" + (isObfuscated ? "Lbrt;" : "Lnet/minecraft/client/model/TextureOffset;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lblg;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lbrt;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lblg;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lbrt;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lblg;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lbrt;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lblg;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lbrt;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
 		if(!hadLocalGetTextureOffset)
 		{
-			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lblg;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
+			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localGetTextureOffset", "(Ljava/lang/String;)" + (isObfuscated ? "Lbrt;" : "Lnet/minecraft/client/model/TextureOffset;") + "", null, null);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lblg;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78084_a" : "getTextureOffset", "" + (isObfuscated ? "(Ljava/lang/String;)Lbrt;" : "(Ljava/lang/String;)Lnet/minecraft/client/model/TextureOffset;") + "", false);
 			mv.visitInsn(Opcodes.ARETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLse;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLvo;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.FLOAD, 1);
 		mv.visitVarInsn(Opcodes.ALOAD, 2);
@@ -363,7 +363,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.FLOAD, 1);
 		mv.visitVarInsn(Opcodes.ALOAD, 2);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLse;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLvo;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -372,7 +372,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.FLOAD, 1);
 		mv.visitVarInsn(Opcodes.ALOAD, 2);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLse;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLvo;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -383,13 +383,13 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.FLOAD, 1);
 			mv.visitVarInsn(Opcodes.ALOAD, 2);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLse;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_187073_a" : "postRenderArm", "" + (isObfuscated ? "(FLvo;)V" : "(FLnet/minecraft/util/EnumHandSide;)V") + "", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lrw;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lvg;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
 		mv.visitVarInsn(Opcodes.FLOAD, 2);
@@ -412,7 +412,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 5);
 		mv.visitVarInsn(Opcodes.FLOAD, 6);
 		mv.visitVarInsn(Opcodes.FLOAD, 7);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lrw;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lvg;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -426,7 +426,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 5);
 		mv.visitVarInsn(Opcodes.FLOAD, 6);
 		mv.visitVarInsn(Opcodes.FLOAD, 7);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lrw;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lvg;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -442,48 +442,13 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv.visitVarInsn(Opcodes.FLOAD, 5);
 			mv.visitVarInsn(Opcodes.FLOAD, 6);
 			mv.visitVarInsn(Opcodes.FLOAD, 7);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lrw;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78088_a" : "render", "" + (isObfuscated ? "(Lvg;FFFFFF)V" : "(Lnet/minecraft/entity/Entity;FFFFFF)V") + "", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_178719_a" : "setInvisible", "(Z)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ILOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "setInvisible", "(Lapi/player/model/IModelPlayerAPI;Z)V", false);
-		mv.visitInsn(Opcodes.RETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realSetInvisible", "(Z)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ILOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_178719_a" : "setInvisible", "(Z)V", false);
-		mv.visitInsn(Opcodes.RETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superSetInvisible", "(Z)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ILOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178719_a" : "setInvisible", "(Z)V", false);
-		mv.visitInsn(Opcodes.RETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		if(!hadLocalSetInvisible)
-		{
-			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localSetInvisible", "(Z)V", null, null);
-			mv.visitVarInsn(Opcodes.ALOAD, 0);
-			mv.visitVarInsn(Opcodes.ILOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178719_a" : "setInvisible", "(Z)V", false);
-			mv.visitInsn(Opcodes.RETURN);
-			mv.visitMaxs(0, 0);
-			mv.visitEnd();
-		}
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lsf;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lvp;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
 		mv.visitVarInsn(Opcodes.FLOAD, 2);
@@ -500,7 +465,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 2);
 		mv.visitVarInsn(Opcodes.FLOAD, 3);
 		mv.visitVarInsn(Opcodes.FLOAD, 4);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lsf;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lvp;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -511,7 +476,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 2);
 		mv.visitVarInsn(Opcodes.FLOAD, 3);
 		mv.visitVarInsn(Opcodes.FLOAD, 4);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lsf;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lvp;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -524,13 +489,13 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv.visitVarInsn(Opcodes.FLOAD, 2);
 			mv.visitVarInsn(Opcodes.FLOAD, 3);
 			mv.visitVarInsn(Opcodes.FLOAD, 4);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lsf;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78086_a" : "setLivingAnimations", "" + (isObfuscated ? "(Lvp;FFF)V" : "(Lnet/minecraft/entity/EntityLivingBase;FFF)V") + "", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbju;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbqf;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
 		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "setModelAttributes", "(Lapi/player/model/IModelPlayerAPI;Lnet/minecraft/client/model/ModelBase;)V", false);
@@ -541,7 +506,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realSetModelAttributes", "(Lnet/minecraft/client/model/ModelBase;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbju;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbqf;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -549,7 +514,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superSetModelAttributes", "(Lnet/minecraft/client/model/ModelBase;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbju;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbqf;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -559,13 +524,13 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localSetModelAttributes", "(Lnet/minecraft/client/model/ModelBase;)V", null, null);
 			mv.visitVarInsn(Opcodes.ALOAD, 0);
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbju;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178686_a" : "setModelAttributes", "" + (isObfuscated ? "(Lbqf;)V" : "(Lnet/minecraft/client/model/ModelBase;)V") + "", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLrw;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLvg;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.FLOAD, 1);
 		mv.visitVarInsn(Opcodes.FLOAD, 2);
@@ -588,7 +553,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 5);
 		mv.visitVarInsn(Opcodes.FLOAD, 6);
 		mv.visitVarInsn(Opcodes.ALOAD, 7);
-		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLrw;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLvg;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -602,7 +567,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.FLOAD, 5);
 		mv.visitVarInsn(Opcodes.FLOAD, 6);
 		mv.visitVarInsn(Opcodes.ALOAD, 7);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLrw;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLvg;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -618,7 +583,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv.visitVarInsn(Opcodes.FLOAD, 5);
 			mv.visitVarInsn(Opcodes.FLOAD, 6);
 			mv.visitVarInsn(Opcodes.ALOAD, 7);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLrw;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78087_a" : "setRotationAngles", "" + (isObfuscated ? "(FFFFFFLvg;)V" : "(FFFFFFLnet/minecraft/entity/Entity;)V") + "", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
@@ -649,7 +614,7 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
 		mv.visitVarInsn(Opcodes.ILOAD, 2);
 		mv.visitVarInsn(Opcodes.ILOAD, 3);
-		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78085_a" : "setTextureOffset", "(Ljava/lang/String;II)V", false);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78085_a" : "setTextureOffset", "(Ljava/lang/String;II)V", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -661,113 +626,148 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 			mv.visitVarInsn(Opcodes.ALOAD, 1);
 			mv.visitVarInsn(Opcodes.ILOAD, 2);
 			mv.visitVarInsn(Opcodes.ILOAD, 3);
-			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bjp" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78085_a" : "setTextureOffset", "(Ljava/lang/String;II)V", false);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_78085_a" : "setTextureOffset", "(Ljava/lang/String;II)V", false);
 			mv.visitInsn(Opcodes.RETURN);
 			mv.visitMaxs(0, 0);
 			mv.visitEnd();
 		}
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedBodyField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC, isObfuscated ? "func_178719_a" : "setVisible", "(Z)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "g" : "bipedBody", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
-		mv.visitInsn(Opcodes.ARETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedBodyField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "g" : "bipedBody", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitVarInsn(Opcodes.ILOAD, 1);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "setVisible", "(Lapi/player/model/IModelPlayerAPI;Z)V", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedHeadField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "realSetVisible", "(Z)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "e" : "bipedHead", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
-		mv.visitInsn(Opcodes.ARETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedHeadField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "e" : "bipedHead", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitVarInsn(Opcodes.ILOAD, 1);
+		mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "api/player/model/ModelPlayerArmor", isObfuscated ? "func_178719_a" : "setVisible", "(Z)V", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedHeadwearField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "superSetVisible", "(Z)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "f" : "bipedHeadwear", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
-		mv.visitInsn(Opcodes.ARETURN);
-		mv.visitMaxs(0, 0);
-		mv.visitEnd();
-
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedHeadwearField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
-		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "f" : "bipedHeadwear", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitVarInsn(Opcodes.ILOAD, 1);
+		mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178719_a" : "setVisible", "(Z)V", false);
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedLeftArmField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		if(!hadLocalSetVisible)
+		{
+			mv = cv.visitMethod(Opcodes.ACC_PUBLIC, "localSetVisible", "(Z)V", null, null);
+			mv.visitVarInsn(Opcodes.ALOAD, 0);
+			mv.visitVarInsn(Opcodes.ILOAD, 1);
+			mv.visitMethodInsn(Opcodes.INVOKESPECIAL, isObfuscated ? "bpx" : "net/minecraft/client/model/ModelBiped", isObfuscated ? "func_178719_a" : "setVisible", "(Z)V", false);
+			mv.visitInsn(Opcodes.RETURN);
+			mv.visitMaxs(0, 0);
+			mv.visitEnd();
+		}
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedBodyField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "i" : "bipedLeftArm", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "g" : "bipedBody", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedLeftArmField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedBodyField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "i" : "bipedLeftArm", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "g" : "bipedBody", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedLeftLegField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedHeadField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "k" : "bipedLeftLeg", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "e" : "bipedHead", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedLeftLegField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedHeadField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "k" : "bipedLeftLeg", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "e" : "bipedHead", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedRightArmField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedHeadwearField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "h" : "bipedRightArm", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "f" : "bipedHeadwear", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedRightArmField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedHeadwearField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "h" : "bipedRightArm", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "f" : "bipedHeadwear", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedRightLegField", isObfuscated ? "()Lblf;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedLeftArmField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "j" : "bipedRightLeg", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "i" : "bipedLeftArm", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedRightLegField", isObfuscated ? "(Lblf;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedLeftArmField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "j" : "bipedRightLeg", isObfuscated ? "Lblf;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "i" : "bipedLeftArm", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.RETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedLeftLegField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "k" : "bipedLeftLeg", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.ARETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedLeftLegField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitVarInsn(Opcodes.ALOAD, 1);
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "k" : "bipedLeftLeg", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.RETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedRightArmField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "h" : "bipedRightArm", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.ARETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedRightArmField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitVarInsn(Opcodes.ALOAD, 1);
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "h" : "bipedRightArm", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.RETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getBipedRightLegField", isObfuscated ? "()Lbrs;" : "()Lnet/minecraft/client/model/ModelRenderer;", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "j" : "bipedRightLeg", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
+		mv.visitInsn(Opcodes.ARETURN);
+		mv.visitMaxs(0, 0);
+		mv.visitEnd();
+
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setBipedRightLegField", isObfuscated ? "(Lbrs;)V" : "(Lnet/minecraft/client/model/ModelRenderer;)V", null, null);
+		mv.visitVarInsn(Opcodes.ALOAD, 0);
+		mv.visitVarInsn(Opcodes.ALOAD, 1);
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "j" : "bipedRightLeg", isObfuscated ? "Lbrs;" : "Lnet/minecraft/client/model/ModelRenderer;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -832,32 +832,32 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getLeftArmPoseField", isObfuscated ? "()Lbjp$a;" : "()Lnet/minecraft/client/model/ModelBiped$ArmPose;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getLeftArmPoseField", isObfuscated ? "()Lbpx$a;" : "()Lnet/minecraft/client/model/ModelBiped$ArmPose;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "l" : "leftArmPose", isObfuscated ? "Lbjp$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "l" : "leftArmPose", isObfuscated ? "Lbpx$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setLeftArmPoseField", isObfuscated ? "(Lbjp$a;)V" : "(Lnet/minecraft/client/model/ModelBiped$ArmPose;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setLeftArmPoseField", isObfuscated ? "(Lbpx$a;)V" : "(Lnet/minecraft/client/model/ModelBiped$ArmPose;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "l" : "leftArmPose", isObfuscated ? "Lbjp$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "l" : "leftArmPose", isObfuscated ? "Lbpx$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getRightArmPoseField", isObfuscated ? "()Lbjp$a;" : "()Lnet/minecraft/client/model/ModelBiped$ArmPose;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getRightArmPoseField", isObfuscated ? "()Lbpx$a;" : "()Lnet/minecraft/client/model/ModelBiped$ArmPose;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
-		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "m" : "rightArmPose", isObfuscated ? "Lbjp$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
+		mv.visitFieldInsn(Opcodes.GETFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "m" : "rightArmPose", isObfuscated ? "Lbpx$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setRightArmPoseField", isObfuscated ? "(Lbjp$a;)V" : "(Lnet/minecraft/client/model/ModelBiped$ArmPose;)V", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "setRightArmPoseField", isObfuscated ? "(Lbpx$a;)V" : "(Lnet/minecraft/client/model/ModelBiped$ArmPose;)V", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitVarInsn(Opcodes.ALOAD, 1);
-		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "m" : "rightArmPose", isObfuscated ? "Lbjp$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
+		mv.visitFieldInsn(Opcodes.PUTFIELD, "api/player/model/ModelPlayerArmor", isObfuscated ? "m" : "rightArmPose", isObfuscated ? "Lbpx$a;" : "Lnet/minecraft/client/model/ModelBiped$ArmPose;");
 		mv.visitInsn(Opcodes.RETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
@@ -980,14 +980,14 @@ public final class ModelPlayerArmorClassVisitor extends ClassVisitor
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getModelPlayer", isObfuscated ? "()Lbjp;" : "()Lnet/minecraft/client/model/ModelBiped;", null, null);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_FINAL, "getModelPlayer", isObfuscated ? "()Lbpx;" : "()Lnet/minecraft/client/model/ModelBiped;", null, null);
 		mv.visitVarInsn(Opcodes.ALOAD, 0);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();
 
-		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "getAllInstances", isObfuscated ? "()[Lbjp;" : "()[Lnet/minecraft/client/model/ModelBiped;", null, null);
-		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getAllInstances", isObfuscated ? "()[Lbjp;" : "()[Lnet/minecraft/client/model/ModelBiped;", false);
+		mv = cv.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "getAllInstances", isObfuscated ? "()[Lbpx;" : "()[Lnet/minecraft/client/model/ModelBiped;", null, null);
+		mv.visitMethodInsn(Opcodes.INVOKESTATIC, "api/player/model/ModelPlayerAPI", "getAllInstances", isObfuscated ? "()[Lbpx;" : "()[Lnet/minecraft/client/model/ModelBiped;", false);
 		mv.visitInsn(Opcodes.ARETURN);
 		mv.visitMaxs(0, 0);
 		mv.visitEnd();

@@ -441,6 +441,29 @@ public abstract class RenderPlayerBase
 	{
 	}
 
+	public void beforeIsVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer)
+	{
+	}
+
+	public boolean isVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer)
+	{
+		RenderPlayerBase overwritten = internalRenderPlayerAPI.GetOverwrittenIsVisible(this);
+
+		boolean _result;
+		if(overwritten == null)
+			_result = renderPlayerAPI.localIsVisible(paramAbstractClientPlayer);
+		else if(overwritten != this)
+			_result = overwritten.isVisible(paramAbstractClientPlayer);
+		else
+			_result = false;
+
+		return _result;
+	}
+
+	public void afterIsVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer)
+	{
+	}
+
 	public void beforePreRenderCallback(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat)
 	{
 	}
@@ -480,29 +503,6 @@ public abstract class RenderPlayerBase
 	}
 
 	public void afterPrepareScale(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat)
-	{
-	}
-
-	public void beforeRemoveLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer)
-	{
-	}
-
-	public boolean removeLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer)
-	{
-		RenderPlayerBase overwritten = internalRenderPlayerAPI.GetOverwrittenRemoveLayer(this);
-
-		boolean _result;
-		if(overwritten == null)
-			_result = renderPlayerAPI.localRemoveLayer(paramLayerRenderer);
-		else if(overwritten != this)
-			_result = overwritten.removeLayer(paramLayerRenderer);
-		else
-			_result = false;
-
-		return _result;
-	}
-
-	public void afterRemoveLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer)
 	{
 	}
 

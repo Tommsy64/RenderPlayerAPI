@@ -90,13 +90,6 @@ public final class ModelPlayerBaseSorting
 	private String[] afterRenderDeadmau5HeadSuperiors = null;
 	private String[] afterRenderDeadmau5HeadInferiors = null;
 
-	private String[] beforeSetInvisibleSuperiors = null;
-	private String[] beforeSetInvisibleInferiors = null;
-	private String[] overrideSetInvisibleSuperiors = null;
-	private String[] overrideSetInvisibleInferiors = null;
-	private String[] afterSetInvisibleSuperiors = null;
-	private String[] afterSetInvisibleInferiors = null;
-
 	private String[] beforeSetLivingAnimationsSuperiors = null;
 	private String[] beforeSetLivingAnimationsInferiors = null;
 	private String[] overrideSetLivingAnimationsSuperiors = null;
@@ -124,6 +117,13 @@ public final class ModelPlayerBaseSorting
 	private String[] overrideSetTextureOffsetInferiors = null;
 	private String[] afterSetTextureOffsetSuperiors = null;
 	private String[] afterSetTextureOffsetInferiors = null;
+
+	private String[] beforeSetVisibleSuperiors = null;
+	private String[] beforeSetVisibleInferiors = null;
+	private String[] overrideSetVisibleSuperiors = null;
+	private String[] overrideSetVisibleInferiors = null;
+	private String[] afterSetVisibleSuperiors = null;
+	private String[] afterSetVisibleInferiors = null;
 
 
 	public String[] getBeforeLocalConstructingSuperiors()
@@ -725,66 +725,6 @@ public final class ModelPlayerBaseSorting
 		afterRenderDeadmau5HeadInferiors = value;
 	}
 
-	public String[] getBeforeSetInvisibleSuperiors()
-	{
-		return beforeSetInvisibleSuperiors;
-	}
-
-	public String[] getBeforeSetInvisibleInferiors()
-	{
-		return beforeSetInvisibleInferiors;
-	}
-
-	public String[] getOverrideSetInvisibleSuperiors()
-	{
-		return overrideSetInvisibleSuperiors;
-	}
-
-	public String[] getOverrideSetInvisibleInferiors()
-	{
-		return overrideSetInvisibleInferiors;
-	}
-
-	public String[] getAfterSetInvisibleSuperiors()
-	{
-		return afterSetInvisibleSuperiors;
-	}
-
-	public String[] getAfterSetInvisibleInferiors()
-	{
-		return afterSetInvisibleInferiors;
-	}
-
-	public void setBeforeSetInvisibleSuperiors(String[] value)
-	{
-		beforeSetInvisibleSuperiors = value;
-	}
-
-	public void setBeforeSetInvisibleInferiors(String[] value)
-	{
-		beforeSetInvisibleInferiors = value;
-	}
-
-	public void setOverrideSetInvisibleSuperiors(String[] value)
-	{
-		overrideSetInvisibleSuperiors = value;
-	}
-
-	public void setOverrideSetInvisibleInferiors(String[] value)
-	{
-		overrideSetInvisibleInferiors = value;
-	}
-
-	public void setAfterSetInvisibleSuperiors(String[] value)
-	{
-		afterSetInvisibleSuperiors = value;
-	}
-
-	public void setAfterSetInvisibleInferiors(String[] value)
-	{
-		afterSetInvisibleInferiors = value;
-	}
-
 	public String[] getBeforeSetLivingAnimationsSuperiors()
 	{
 		return beforeSetLivingAnimationsSuperiors;
@@ -1023,6 +963,66 @@ public final class ModelPlayerBaseSorting
 	public void setAfterSetTextureOffsetInferiors(String[] value)
 	{
 		afterSetTextureOffsetInferiors = value;
+	}
+
+	public String[] getBeforeSetVisibleSuperiors()
+	{
+		return beforeSetVisibleSuperiors;
+	}
+
+	public String[] getBeforeSetVisibleInferiors()
+	{
+		return beforeSetVisibleInferiors;
+	}
+
+	public String[] getOverrideSetVisibleSuperiors()
+	{
+		return overrideSetVisibleSuperiors;
+	}
+
+	public String[] getOverrideSetVisibleInferiors()
+	{
+		return overrideSetVisibleInferiors;
+	}
+
+	public String[] getAfterSetVisibleSuperiors()
+	{
+		return afterSetVisibleSuperiors;
+	}
+
+	public String[] getAfterSetVisibleInferiors()
+	{
+		return afterSetVisibleInferiors;
+	}
+
+	public void setBeforeSetVisibleSuperiors(String[] value)
+	{
+		beforeSetVisibleSuperiors = value;
+	}
+
+	public void setBeforeSetVisibleInferiors(String[] value)
+	{
+		beforeSetVisibleInferiors = value;
+	}
+
+	public void setOverrideSetVisibleSuperiors(String[] value)
+	{
+		overrideSetVisibleSuperiors = value;
+	}
+
+	public void setOverrideSetVisibleInferiors(String[] value)
+	{
+		overrideSetVisibleInferiors = value;
+	}
+
+	public void setAfterSetVisibleSuperiors(String[] value)
+	{
+		afterSetVisibleSuperiors = value;
+	}
+
+	public void setAfterSetVisibleInferiors(String[] value)
+	{
+		afterSetVisibleInferiors = value;
 	}
 
 }

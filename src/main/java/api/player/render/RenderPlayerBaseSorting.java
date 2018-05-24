@@ -153,6 +153,13 @@ public final class RenderPlayerBaseSorting
 	private String[] afterIsMultipassSuperiors = null;
 	private String[] afterIsMultipassInferiors = null;
 
+	private String[] beforeIsVisibleSuperiors = null;
+	private String[] beforeIsVisibleInferiors = null;
+	private String[] overrideIsVisibleSuperiors = null;
+	private String[] overrideIsVisibleInferiors = null;
+	private String[] afterIsVisibleSuperiors = null;
+	private String[] afterIsVisibleInferiors = null;
+
 	private String[] beforePreRenderCallbackSuperiors = null;
 	private String[] beforePreRenderCallbackInferiors = null;
 	private String[] overridePreRenderCallbackSuperiors = null;
@@ -166,13 +173,6 @@ public final class RenderPlayerBaseSorting
 	private String[] overridePrepareScaleInferiors = null;
 	private String[] afterPrepareScaleSuperiors = null;
 	private String[] afterPrepareScaleInferiors = null;
-
-	private String[] beforeRemoveLayerSuperiors = null;
-	private String[] beforeRemoveLayerInferiors = null;
-	private String[] overrideRemoveLayerSuperiors = null;
-	private String[] overrideRemoveLayerInferiors = null;
-	private String[] afterRemoveLayerSuperiors = null;
-	private String[] afterRemoveLayerInferiors = null;
 
 	private String[] beforeRenderEntityNameSuperiors = null;
 	private String[] beforeRenderEntityNameInferiors = null;
@@ -1447,6 +1447,66 @@ public final class RenderPlayerBaseSorting
 		afterIsMultipassInferiors = value;
 	}
 
+	public String[] getBeforeIsVisibleSuperiors()
+	{
+		return beforeIsVisibleSuperiors;
+	}
+
+	public String[] getBeforeIsVisibleInferiors()
+	{
+		return beforeIsVisibleInferiors;
+	}
+
+	public String[] getOverrideIsVisibleSuperiors()
+	{
+		return overrideIsVisibleSuperiors;
+	}
+
+	public String[] getOverrideIsVisibleInferiors()
+	{
+		return overrideIsVisibleInferiors;
+	}
+
+	public String[] getAfterIsVisibleSuperiors()
+	{
+		return afterIsVisibleSuperiors;
+	}
+
+	public String[] getAfterIsVisibleInferiors()
+	{
+		return afterIsVisibleInferiors;
+	}
+
+	public void setBeforeIsVisibleSuperiors(String[] value)
+	{
+		beforeIsVisibleSuperiors = value;
+	}
+
+	public void setBeforeIsVisibleInferiors(String[] value)
+	{
+		beforeIsVisibleInferiors = value;
+	}
+
+	public void setOverrideIsVisibleSuperiors(String[] value)
+	{
+		overrideIsVisibleSuperiors = value;
+	}
+
+	public void setOverrideIsVisibleInferiors(String[] value)
+	{
+		overrideIsVisibleInferiors = value;
+	}
+
+	public void setAfterIsVisibleSuperiors(String[] value)
+	{
+		afterIsVisibleSuperiors = value;
+	}
+
+	public void setAfterIsVisibleInferiors(String[] value)
+	{
+		afterIsVisibleInferiors = value;
+	}
+
 	public String[] getBeforePreRenderCallbackSuperiors()
 	{
 		return beforePreRenderCallbackSuperiors;
@@ -1565,66 +1625,6 @@ public final class RenderPlayerBaseSorting
 	public void setAfterPrepareScaleInferiors(String[] value)
 	{
 		afterPrepareScaleInferiors = value;
-	}
-
-	public String[] getBeforeRemoveLayerSuperiors()
-	{
-		return beforeRemoveLayerSuperiors;
-	}
-
-	public String[] getBeforeRemoveLayerInferiors()
-	{
-		return beforeRemoveLayerInferiors;
-	}
-
-	public String[] getOverrideRemoveLayerSuperiors()
-	{
-		return overrideRemoveLayerSuperiors;
-	}
-
-	public String[] getOverrideRemoveLayerInferiors()
-	{
-		return overrideRemoveLayerInferiors;
-	}
-
-	public String[] getAfterRemoveLayerSuperiors()
-	{
-		return afterRemoveLayerSuperiors;
-	}
-
-	public String[] getAfterRemoveLayerInferiors()
-	{
-		return afterRemoveLayerInferiors;
-	}
-
-	public void setBeforeRemoveLayerSuperiors(String[] value)
-	{
-		beforeRemoveLayerSuperiors = value;
-	}
-
-	public void setBeforeRemoveLayerInferiors(String[] value)
-	{
-		beforeRemoveLayerInferiors = value;
-	}
-
-	public void setOverrideRemoveLayerSuperiors(String[] value)
-	{
-		overrideRemoveLayerSuperiors = value;
-	}
-
-	public void setOverrideRemoveLayerInferiors(String[] value)
-	{
-		overrideRemoveLayerInferiors = value;
-	}
-
-	public void setAfterRemoveLayerSuperiors(String[] value)
-	{
-		afterRemoveLayerSuperiors = value;
-	}
-
-	public void setAfterRemoveLayerInferiors(String[] value)
-	{
-		afterRemoveLayerInferiors = value;
 	}
 
 	public String[] getBeforeRenderEntityNameSuperiors()

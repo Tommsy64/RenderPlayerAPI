@@ -67,7 +67,7 @@ public final class LayerPlayerArmorConstructorVisitor extends MethodVisitor
 			}
 		}
 		if(isObfuscated && name.equals("<init>") && owner.equals("net/minecraft/client/renderer/entity/layers/LayerBipedArmor"))
-			owner = "buq";
+			owner = "ccb";
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 	}
 }

@@ -27,7 +27,7 @@ public final class LayerPlayerArmorClassVisitor extends ClassVisitor
 {
 	public static final String targetClassName = "api.player.render.LayerPlayerArmor";
 	public static final String obfuscatedClassReference = "api/player/render/LayerPlayerArmor";
-	public static final String obfuscatedSuperClassReference = "buq";
+	public static final String obfuscatedSuperClassReference = "ccb";
 	public static final String deobfuscatedClassReference = "api/player/render/LayerPlayerArmor";
 	public static final String deobfuscateSuperClassReference = "net/minecraft/client/renderer/entity/layers/LayerBipedArmor";
 
@@ -67,7 +67,7 @@ public final class LayerPlayerArmorClassVisitor extends ClassVisitor
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces)
 	{
 		if(isObfuscated && superName.equals("net/minecraft/client/renderer/entity/layers/LayerBipedArmor"))
-			superName = "buq";
+			superName = "ccb";
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 

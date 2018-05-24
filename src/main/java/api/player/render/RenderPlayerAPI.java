@@ -275,6 +275,13 @@ public final class RenderPlayerAPI
 			addSorting(id, allBaseAfterIsMultipassSuperiors, baseSorting.getAfterIsMultipassSuperiors());
 			addSorting(id, allBaseAfterIsMultipassInferiors, baseSorting.getAfterIsMultipassInferiors());
 
+			addSorting(id, allBaseBeforeIsVisibleSuperiors, baseSorting.getBeforeIsVisibleSuperiors());
+			addSorting(id, allBaseBeforeIsVisibleInferiors, baseSorting.getBeforeIsVisibleInferiors());
+			addSorting(id, allBaseOverrideIsVisibleSuperiors, baseSorting.getOverrideIsVisibleSuperiors());
+			addSorting(id, allBaseOverrideIsVisibleInferiors, baseSorting.getOverrideIsVisibleInferiors());
+			addSorting(id, allBaseAfterIsVisibleSuperiors, baseSorting.getAfterIsVisibleSuperiors());
+			addSorting(id, allBaseAfterIsVisibleInferiors, baseSorting.getAfterIsVisibleInferiors());
+
 			addSorting(id, allBaseBeforePreRenderCallbackSuperiors, baseSorting.getBeforePreRenderCallbackSuperiors());
 			addSorting(id, allBaseBeforePreRenderCallbackInferiors, baseSorting.getBeforePreRenderCallbackInferiors());
 			addSorting(id, allBaseOverridePreRenderCallbackSuperiors, baseSorting.getOverridePreRenderCallbackSuperiors());
@@ -288,13 +295,6 @@ public final class RenderPlayerAPI
 			addSorting(id, allBaseOverridePrepareScaleInferiors, baseSorting.getOverridePrepareScaleInferiors());
 			addSorting(id, allBaseAfterPrepareScaleSuperiors, baseSorting.getAfterPrepareScaleSuperiors());
 			addSorting(id, allBaseAfterPrepareScaleInferiors, baseSorting.getAfterPrepareScaleInferiors());
-
-			addSorting(id, allBaseBeforeRemoveLayerSuperiors, baseSorting.getBeforeRemoveLayerSuperiors());
-			addSorting(id, allBaseBeforeRemoveLayerInferiors, baseSorting.getBeforeRemoveLayerInferiors());
-			addSorting(id, allBaseOverrideRemoveLayerSuperiors, baseSorting.getOverrideRemoveLayerSuperiors());
-			addSorting(id, allBaseOverrideRemoveLayerInferiors, baseSorting.getOverrideRemoveLayerInferiors());
-			addSorting(id, allBaseAfterRemoveLayerSuperiors, baseSorting.getAfterRemoveLayerSuperiors());
-			addSorting(id, allBaseAfterRemoveLayerInferiors, baseSorting.getAfterRemoveLayerInferiors());
 
 			addSorting(id, allBaseBeforeRenderEntityNameSuperiors, baseSorting.getBeforeRenderEntityNameSuperiors());
 			addSorting(id, allBaseBeforeRenderEntityNameInferiors, baseSorting.getBeforeRenderEntityNameInferiors());
@@ -503,6 +503,10 @@ public final class RenderPlayerAPI
 		addMethod(id, baseClass, overrideIsMultipassHookTypes, "isMultipass");
 		addMethod(id, baseClass, afterIsMultipassHookTypes, "afterIsMultipass");
 
+		addMethod(id, baseClass, beforeIsVisibleHookTypes, "beforeIsVisible", net.minecraft.client.entity.AbstractClientPlayer.class);
+		addMethod(id, baseClass, overrideIsVisibleHookTypes, "isVisible", net.minecraft.client.entity.AbstractClientPlayer.class);
+		addMethod(id, baseClass, afterIsVisibleHookTypes, "afterIsVisible", net.minecraft.client.entity.AbstractClientPlayer.class);
+
 		addMethod(id, baseClass, beforePreRenderCallbackHookTypes, "beforePreRenderCallback", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
 		addMethod(id, baseClass, overridePreRenderCallbackHookTypes, "preRenderCallback", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
 		addMethod(id, baseClass, afterPreRenderCallbackHookTypes, "afterPreRenderCallback", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
@@ -510,10 +514,6 @@ public final class RenderPlayerAPI
 		addMethod(id, baseClass, beforePrepareScaleHookTypes, "beforePrepareScale", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
 		addMethod(id, baseClass, overridePrepareScaleHookTypes, "prepareScale", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
 		addMethod(id, baseClass, afterPrepareScaleHookTypes, "afterPrepareScale", net.minecraft.client.entity.AbstractClientPlayer.class, float.class);
-
-		addMethod(id, baseClass, beforeRemoveLayerHookTypes, "beforeRemoveLayer", net.minecraft.client.renderer.entity.layers.LayerRenderer.class);
-		addMethod(id, baseClass, overrideRemoveLayerHookTypes, "removeLayer", net.minecraft.client.renderer.entity.layers.LayerRenderer.class);
-		addMethod(id, baseClass, afterRemoveLayerHookTypes, "afterRemoveLayer", net.minecraft.client.renderer.entity.layers.LayerRenderer.class);
 
 		addMethod(id, baseClass, beforeRenderEntityNameHookTypes, "beforeRenderEntityName", net.minecraft.client.entity.AbstractClientPlayer.class, double.class, double.class, double.class, String.class, double.class);
 		addMethod(id, baseClass, overrideRenderEntityNameHookTypes, "renderEntityName", net.minecraft.client.entity.AbstractClientPlayer.class, double.class, double.class, double.class, String.class, double.class);
@@ -811,6 +811,17 @@ public final class RenderPlayerAPI
 		overrideIsMultipassHookTypes.remove(id);
 		afterIsMultipassHookTypes.remove(id);
 
+		allBaseBeforeIsVisibleSuperiors.remove(id);
+		allBaseBeforeIsVisibleInferiors.remove(id);
+		allBaseOverrideIsVisibleSuperiors.remove(id);
+		allBaseOverrideIsVisibleInferiors.remove(id);
+		allBaseAfterIsVisibleSuperiors.remove(id);
+		allBaseAfterIsVisibleInferiors.remove(id);
+
+		beforeIsVisibleHookTypes.remove(id);
+		overrideIsVisibleHookTypes.remove(id);
+		afterIsVisibleHookTypes.remove(id);
+
 		allBaseBeforePreRenderCallbackSuperiors.remove(id);
 		allBaseBeforePreRenderCallbackInferiors.remove(id);
 		allBaseOverridePreRenderCallbackSuperiors.remove(id);
@@ -832,17 +843,6 @@ public final class RenderPlayerAPI
 		beforePrepareScaleHookTypes.remove(id);
 		overridePrepareScaleHookTypes.remove(id);
 		afterPrepareScaleHookTypes.remove(id);
-
-		allBaseBeforeRemoveLayerSuperiors.remove(id);
-		allBaseBeforeRemoveLayerInferiors.remove(id);
-		allBaseOverrideRemoveLayerSuperiors.remove(id);
-		allBaseOverrideRemoveLayerInferiors.remove(id);
-		allBaseAfterRemoveLayerSuperiors.remove(id);
-		allBaseAfterRemoveLayerInferiors.remove(id);
-
-		beforeRemoveLayerHookTypes.remove(id);
-		overrideRemoveLayerHookTypes.remove(id);
-		afterRemoveLayerHookTypes.remove(id);
 
 		allBaseBeforeRenderEntityNameSuperiors.remove(id);
 		allBaseBeforeRenderEntityNameInferiors.remove(id);
@@ -1360,6 +1360,10 @@ public final class RenderPlayerAPI
 		sortBases(overrideIsMultipassHookTypes, allBaseOverrideIsMultipassSuperiors, allBaseOverrideIsMultipassInferiors, "overrideIsMultipass");
 		sortBases(afterIsMultipassHookTypes, allBaseAfterIsMultipassSuperiors, allBaseAfterIsMultipassInferiors, "afterIsMultipass");
 
+		sortBases(beforeIsVisibleHookTypes, allBaseBeforeIsVisibleSuperiors, allBaseBeforeIsVisibleInferiors, "beforeIsVisible");
+		sortBases(overrideIsVisibleHookTypes, allBaseOverrideIsVisibleSuperiors, allBaseOverrideIsVisibleInferiors, "overrideIsVisible");
+		sortBases(afterIsVisibleHookTypes, allBaseAfterIsVisibleSuperiors, allBaseAfterIsVisibleInferiors, "afterIsVisible");
+
 		sortBases(beforePreRenderCallbackHookTypes, allBaseBeforePreRenderCallbackSuperiors, allBaseBeforePreRenderCallbackInferiors, "beforePreRenderCallback");
 		sortBases(overridePreRenderCallbackHookTypes, allBaseOverridePreRenderCallbackSuperiors, allBaseOverridePreRenderCallbackInferiors, "overridePreRenderCallback");
 		sortBases(afterPreRenderCallbackHookTypes, allBaseAfterPreRenderCallbackSuperiors, allBaseAfterPreRenderCallbackInferiors, "afterPreRenderCallback");
@@ -1367,10 +1371,6 @@ public final class RenderPlayerAPI
 		sortBases(beforePrepareScaleHookTypes, allBaseBeforePrepareScaleSuperiors, allBaseBeforePrepareScaleInferiors, "beforePrepareScale");
 		sortBases(overridePrepareScaleHookTypes, allBaseOverridePrepareScaleSuperiors, allBaseOverridePrepareScaleInferiors, "overridePrepareScale");
 		sortBases(afterPrepareScaleHookTypes, allBaseAfterPrepareScaleSuperiors, allBaseAfterPrepareScaleInferiors, "afterPrepareScale");
-
-		sortBases(beforeRemoveLayerHookTypes, allBaseBeforeRemoveLayerSuperiors, allBaseBeforeRemoveLayerInferiors, "beforeRemoveLayer");
-		sortBases(overrideRemoveLayerHookTypes, allBaseOverrideRemoveLayerSuperiors, allBaseOverrideRemoveLayerInferiors, "overrideRemoveLayer");
-		sortBases(afterRemoveLayerHookTypes, allBaseAfterRemoveLayerSuperiors, allBaseAfterRemoveLayerInferiors, "afterRemoveLayer");
 
 		sortBases(beforeRenderEntityNameHookTypes, allBaseBeforeRenderEntityNameSuperiors, allBaseBeforeRenderEntityNameInferiors, "beforeRenderEntityName");
 		sortBases(overrideRenderEntityNameHookTypes, allBaseOverrideRenderEntityNameSuperiors, allBaseOverrideRenderEntityNameInferiors, "overrideRenderEntityName");
@@ -1741,6 +1741,14 @@ public final class RenderPlayerAPI
 			overrideIsMultipassHooks != null ||
 			afterIsMultipassHooks != null;
 
+		beforeIsVisibleHooks = create(beforeIsVisibleHookTypes);
+		overrideIsVisibleHooks = create(overrideIsVisibleHookTypes);
+		afterIsVisibleHooks = create(afterIsVisibleHookTypes);
+		isIsVisibleModded =
+			beforeIsVisibleHooks != null ||
+			overrideIsVisibleHooks != null ||
+			afterIsVisibleHooks != null;
+
 		beforePreRenderCallbackHooks = create(beforePreRenderCallbackHookTypes);
 		overridePreRenderCallbackHooks = create(overridePreRenderCallbackHookTypes);
 		afterPreRenderCallbackHooks = create(afterPreRenderCallbackHookTypes);
@@ -1756,14 +1764,6 @@ public final class RenderPlayerAPI
 			beforePrepareScaleHooks != null ||
 			overridePrepareScaleHooks != null ||
 			afterPrepareScaleHooks != null;
-
-		beforeRemoveLayerHooks = create(beforeRemoveLayerHookTypes);
-		overrideRemoveLayerHooks = create(overrideRemoveLayerHookTypes);
-		afterRemoveLayerHooks = create(afterRemoveLayerHookTypes);
-		isRemoveLayerModded =
-			beforeRemoveLayerHooks != null ||
-			overrideRemoveLayerHooks != null ||
-			afterRemoveLayerHooks != null;
 
 		beforeRenderEntityNameHooks = create(beforeRenderEntityNameHookTypes);
 		overrideRenderEntityNameHooks = create(overrideRenderEntityNameHookTypes);
@@ -3101,6 +3101,68 @@ public final class RenderPlayerAPI
 	private static final Map<String, String[]> allBaseAfterIsMultipassSuperiors = new Hashtable<String, String[]>(0);
 	private static final Map<String, String[]> allBaseAfterIsMultipassInferiors = new Hashtable<String, String[]>(0);
 
+	public static boolean isVisible(IRenderPlayerAPI target, net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer)
+	{
+		boolean _result;
+		RenderPlayerAPI renderPlayerAPI = target.getRenderPlayerAPI();
+		if(renderPlayerAPI != null && renderPlayerAPI.isIsVisibleModded)
+			_result = renderPlayerAPI.isVisible(paramAbstractClientPlayer);
+		else
+			_result = target.localIsVisible(paramAbstractClientPlayer);
+		return _result;
+	}
+
+	private boolean isVisible(net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer)
+	{
+		if(beforeIsVisibleHooks != null)
+			for(int i = beforeIsVisibleHooks.length - 1; i >= 0 ; i--)
+				beforeIsVisibleHooks[i].beforeIsVisible(paramAbstractClientPlayer);
+
+		boolean _result;
+		if(overrideIsVisibleHooks != null)
+			_result = overrideIsVisibleHooks[overrideIsVisibleHooks.length - 1].isVisible(paramAbstractClientPlayer);
+		else
+			_result = renderPlayer.localIsVisible(paramAbstractClientPlayer);
+
+		if(afterIsVisibleHooks != null)
+			for(int i = 0; i < afterIsVisibleHooks.length; i++)
+				afterIsVisibleHooks[i].afterIsVisible(paramAbstractClientPlayer);
+
+		return _result;
+	}
+
+	protected RenderPlayerBase GetOverwrittenIsVisible(RenderPlayerBase overWriter)
+	{
+		if (overrideIsVisibleHooks == null)
+			return overWriter;
+
+		for(int i = 0; i < overrideIsVisibleHooks.length; i++)
+			if(overrideIsVisibleHooks[i] == overWriter)
+				if(i == 0)
+					return null;
+				else
+					return overrideIsVisibleHooks[i - 1];
+
+		return overWriter;
+	}
+
+	private final static List<String> beforeIsVisibleHookTypes = new LinkedList<String>();
+	private final static List<String> overrideIsVisibleHookTypes = new LinkedList<String>();
+	private final static List<String> afterIsVisibleHookTypes = new LinkedList<String>();
+
+	private RenderPlayerBase[] beforeIsVisibleHooks;
+	private RenderPlayerBase[] overrideIsVisibleHooks;
+	private RenderPlayerBase[] afterIsVisibleHooks;
+
+	public boolean isIsVisibleModded;
+
+	private static final Map<String, String[]> allBaseBeforeIsVisibleSuperiors = new Hashtable<String, String[]>(0);
+	private static final Map<String, String[]> allBaseBeforeIsVisibleInferiors = new Hashtable<String, String[]>(0);
+	private static final Map<String, String[]> allBaseOverrideIsVisibleSuperiors = new Hashtable<String, String[]>(0);
+	private static final Map<String, String[]> allBaseOverrideIsVisibleInferiors = new Hashtable<String, String[]>(0);
+	private static final Map<String, String[]> allBaseAfterIsVisibleSuperiors = new Hashtable<String, String[]>(0);
+	private static final Map<String, String[]> allBaseAfterIsVisibleInferiors = new Hashtable<String, String[]>(0);
+
 	public static void preRenderCallback(IRenderPlayerAPI target, net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, float paramFloat)
 	{
 		RenderPlayerAPI renderPlayerAPI = target.getRenderPlayerAPI();
@@ -3220,68 +3282,6 @@ public final class RenderPlayerAPI
 	private static final Map<String, String[]> allBaseOverridePrepareScaleInferiors = new Hashtable<String, String[]>(0);
 	private static final Map<String, String[]> allBaseAfterPrepareScaleSuperiors = new Hashtable<String, String[]>(0);
 	private static final Map<String, String[]> allBaseAfterPrepareScaleInferiors = new Hashtable<String, String[]>(0);
-
-	public static boolean removeLayer(IRenderPlayerAPI target, net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer)
-	{
-		boolean _result;
-		RenderPlayerAPI renderPlayerAPI = target.getRenderPlayerAPI();
-		if(renderPlayerAPI != null && renderPlayerAPI.isRemoveLayerModded)
-			_result = renderPlayerAPI.removeLayer(paramLayerRenderer);
-		else
-			_result = target.localRemoveLayer(paramLayerRenderer);
-		return _result;
-	}
-
-	private boolean removeLayer(net.minecraft.client.renderer.entity.layers.LayerRenderer paramLayerRenderer)
-	{
-		if(beforeRemoveLayerHooks != null)
-			for(int i = beforeRemoveLayerHooks.length - 1; i >= 0 ; i--)
-				beforeRemoveLayerHooks[i].beforeRemoveLayer(paramLayerRenderer);
-
-		boolean _result;
-		if(overrideRemoveLayerHooks != null)
-			_result = overrideRemoveLayerHooks[overrideRemoveLayerHooks.length - 1].removeLayer(paramLayerRenderer);
-		else
-			_result = renderPlayer.localRemoveLayer(paramLayerRenderer);
-
-		if(afterRemoveLayerHooks != null)
-			for(int i = 0; i < afterRemoveLayerHooks.length; i++)
-				afterRemoveLayerHooks[i].afterRemoveLayer(paramLayerRenderer);
-
-		return _result;
-	}
-
-	protected RenderPlayerBase GetOverwrittenRemoveLayer(RenderPlayerBase overWriter)
-	{
-		if (overrideRemoveLayerHooks == null)
-			return overWriter;
-
-		for(int i = 0; i < overrideRemoveLayerHooks.length; i++)
-			if(overrideRemoveLayerHooks[i] == overWriter)
-				if(i == 0)
-					return null;
-				else
-					return overrideRemoveLayerHooks[i - 1];
-
-		return overWriter;
-	}
-
-	private final static List<String> beforeRemoveLayerHookTypes = new LinkedList<String>();
-	private final static List<String> overrideRemoveLayerHookTypes = new LinkedList<String>();
-	private final static List<String> afterRemoveLayerHookTypes = new LinkedList<String>();
-
-	private RenderPlayerBase[] beforeRemoveLayerHooks;
-	private RenderPlayerBase[] overrideRemoveLayerHooks;
-	private RenderPlayerBase[] afterRemoveLayerHooks;
-
-	public boolean isRemoveLayerModded;
-
-	private static final Map<String, String[]> allBaseBeforeRemoveLayerSuperiors = new Hashtable<String, String[]>(0);
-	private static final Map<String, String[]> allBaseBeforeRemoveLayerInferiors = new Hashtable<String, String[]>(0);
-	private static final Map<String, String[]> allBaseOverrideRemoveLayerSuperiors = new Hashtable<String, String[]>(0);
-	private static final Map<String, String[]> allBaseOverrideRemoveLayerInferiors = new Hashtable<String, String[]>(0);
-	private static final Map<String, String[]> allBaseAfterRemoveLayerSuperiors = new Hashtable<String, String[]>(0);
-	private static final Map<String, String[]> allBaseAfterRemoveLayerInferiors = new Hashtable<String, String[]>(0);
 
 	public static void renderEntityName(IRenderPlayerAPI target, net.minecraft.client.entity.AbstractClientPlayer paramAbstractClientPlayer, double paramDouble1, double paramDouble2, double paramDouble3, String paramString, double paramDouble4)
 	{
