@@ -34,6 +34,7 @@ public final class LayerPlayerArmorConstructorVisitor extends MethodVisitor
 		this.constructorReplacements = constructorReplacements;
 	}
 
+	@Override
 	public void visitTypeInsn(int opcode, String type)
 	{
 		if(opcode == Opcodes.NEW && constructorReplacements != null && constructorReplacements.containsKey(type))

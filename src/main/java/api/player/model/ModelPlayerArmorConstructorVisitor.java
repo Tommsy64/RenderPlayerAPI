@@ -68,6 +68,7 @@ public final class ModelPlayerArmorConstructorVisitor extends MethodVisitor
 		}
 	}
 
+	@Override
 	public void visitInsn(int opcode)
 	{
 		if(createApi && opcode == Opcodes.RETURN)

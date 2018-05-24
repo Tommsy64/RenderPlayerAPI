@@ -34,6 +34,7 @@ public final class RenderPlayerConstructorVisitor extends MethodVisitor
 		this.constructorReplacements = constructorReplacements;
 	}
 
+	@Override
 	public void visitTypeInsn(int opcode, String type)
 	{
 		if(opcode == Opcodes.NEW && constructorReplacements != null && constructorReplacements.containsKey(type))
@@ -80,6 +81,7 @@ public final class RenderPlayerConstructorVisitor extends MethodVisitor
 		}
 	}
 
+	@Override
 	public void visitInsn(int opcode)
 	{
 		if(opcode == Opcodes.RETURN)

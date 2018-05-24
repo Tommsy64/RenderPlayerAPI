@@ -56,6 +56,7 @@ public abstract class RenderPlayerBase
 		return internalRenderPlayerAPI.dynamicOverwritten(key, parameters, this);
 	}
 
+	@Override
 	public final int hashCode()
 	{
 		return super.hashCode();

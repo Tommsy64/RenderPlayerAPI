@@ -58,6 +58,7 @@ public abstract class ModelPlayerBase
 		return internalModelPlayerAPI.dynamicOverwritten(key, parameters, this);
 	}
 
+	@Override
 	public final int hashCode()
 	{
 		return super.hashCode();

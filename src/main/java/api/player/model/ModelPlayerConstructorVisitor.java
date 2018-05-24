@@ -64,6 +64,7 @@ public final class ModelPlayerConstructorVisitor extends MethodVisitor
 		}
 	}
 
+	@Override
 	public void visitInsn(int opcode)
 	{
 		if(opcode == Opcodes.RETURN)

@@ -44,6 +44,11 @@ minecraft {
     replace "@MCVERSION@", config.minecraft.version
 }
 
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
 jar {
     manifest {
         attributes 'FMLCorePlugin': project.group + '.forge.RenderPlayerAPIPlugin'

@@ -30,26 +30,31 @@ public class RenderPlayerAPIPlugin implements IFMLLoadingPlugin
 
 	public static boolean isObfuscated;
 
+	@Override
 	public String[] getASMTransformerClass()
 	{
 		return new String[] { "api.player.forge.RenderPlayerAPITransformer" };
 	}
 
+	@Override
 	public String getModContainerClass()
 	{
 		return "api.player.forge.RenderPlayerAPIContainer";
 	}
 
+	@Override
 	public String getSetupClass()
 	{
 		return null;
 	}
 
+	@Override
 	public void injectData(Map<String, Object> data)
 	{
 		isObfuscated = (Boolean)data.get("runtimeDeobfuscationEnabled");
 	}
 
+	@Override
 	public String getAccessTransformerClass()
 	{
 		return null;
